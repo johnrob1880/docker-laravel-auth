@@ -99,4 +99,6 @@ return [
         ],
     ],
 
+    'default_password' => 'omega123'
+
 ];

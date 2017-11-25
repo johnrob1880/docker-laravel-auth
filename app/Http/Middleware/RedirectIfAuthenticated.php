@@ -19,6 +19,9 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
             return redirect('/home');
+        } else {
+            // not authenticated
+            $request->merge(array("authView" => "login"));
         }
 
         return $next($request);

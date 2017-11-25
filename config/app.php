@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Omega Quant Web'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,6 +56,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | ReCaptcha
+    |--------------------------------------------------------------------------
+    |
+    | These keys are used by the reCaptcha inputs on the site.
+    |
+    */
+
+    'recaptcha_site_key' => env('RECAPTCHA_SITE_KEY', '6LedITgUAAAAANUNA25P_MdF6PW_JcnTgRpF9tjo'),
+    'recaptcha_secret_key' => env('RECAPTCHA_SECRET_KEY', '6LedITgUAAAAAF6bLDQ1GPsCFIJGYijRGPomYcDU'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |
@@ -69,6 +81,43 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Location Configuration
+    |--------------------------------------------------------------------------
+    |
+    | The application location determines the default location that will be used
+    | by the webapi service provider. You are free to set this value
+    | to any of the locations which will be supported by the application.
+    |
+    */
+
+    'locations' => [
+        'us' => [
+            'default_locale' => 'en'
+        ],
+        'au' => [
+            'default_locale' => 'en-AU'
+        ],
+        'zh' => [
+            'default_locale' => 'zh-CN' 
+        ]
+    ],
+    'location' => 'us',
+    'use_location_default_locale' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Fallback Location
+    |--------------------------------------------------------------------------
+    |
+    | The fallback location determines the location to use when the current one
+    | is not available. You may change the value to correspond to any of
+    | the language folders that are provided through your application.
+    |
+    */
+    'fallback_location' => 'us',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |
@@ -77,7 +126,8 @@ return [
     | to any of the locales which will be supported by the application.
     |
     */
-
+    
+    'locales' => [ 'en' => 'English', 'en-AU' => 'English (Australian)', 'es' => 'Spanish', 'zh-CN' => 'Chinese (Simplified)', 'zh-TW' => 'Chinese (Traditional)' ],
     'locale' => 'en',
 
     /*
@@ -167,6 +217,10 @@ return [
         /*
          * Package Service Providers...
          */
+        Collective\Html\HtmlServiceProvider::class,
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+        
 
         /*
          * Application Service Providers...
@@ -175,7 +229,10 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        //App\Providers\LocationDetectorServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\OmegaWebApiProvider::class,
+        App\Providers\ActivityLoggerProvider::class,
 
     ],
 
@@ -225,7 +282,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
     ],
 
 ];

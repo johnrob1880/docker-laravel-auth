@@ -1,0 +1,14 @@
+#app > .content {
+    background-color: #ffffff;
+    padding-top: 22px;
+}
+[v-cloak] > * { display:none; }
+
+div.terms-conditions {
+    padding: 5px;
+    margin-bottom: 10px;
+    text-align: left;
+    border: 1px solid #dcdcdc;
+    height: 60px;
+    overflow-y: scroll;
+}

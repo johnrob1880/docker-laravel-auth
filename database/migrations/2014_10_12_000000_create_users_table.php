@@ -15,9 +15,16 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->date('date_of_birth');
+            $table->boolean('results_via_email');
+            $table->boolean('verified');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('omegaquant_id')->nullable();
+            $table->string('locale')->default('en');
+            $table->string('origin')->default('usa');
             $table->rememberToken();
             $table->timestamps();
         });

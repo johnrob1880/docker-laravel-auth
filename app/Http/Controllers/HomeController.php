@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
+
+use App\KitRegistration;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+
+        $kits = KitRegistration::where('user_id', $user->id)->get();
+
+        return view('home', [
+            'kits' => $kits
+        ]);
     }
 }

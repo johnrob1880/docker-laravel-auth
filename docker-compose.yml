@@ -1,5 +1,24 @@
 version: "3"
 services: 
+    sqlserver:
+        image: microsoft/mssql-server-linux
+        volumes:
+        - mssql-volume:/var/opt/mssql
+        environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Testing123
+        ports:
+        - "1433:1433"
+    api: 
+        image: omegawebapi
+        environment:
+            - ConnectionString=Server=sqlserver;Initial Catalog=analytics;User=sa;Password=Testing123
+        expose:
+            - "80"
+        ports:
+            - "5101:80"
+        links:
+            - sqlserver
     web:
         build:
             context: ./
@@ -19,7 +38,7 @@ services:
         links:
             - database
         environment:
-            - "DB_DATABASE=homestead"
+            - "DB_DATABASE=omegaquant"
             - "DB_PORT=3306"
             - "DB_HOST=database"
     database:
@@ -28,10 +47,21 @@ services:
             - dbdata:/var/lib/mysql
         environment:
             - "MYSQL_ROOT_PASSWORD=secret"
-            - "MYSQL_DATABASE=homestead"
-            - "MYSQL_USER=homestead"
+            - "MYSQL_DATABASE=omegaquant"
+            - "MYSQL_USER=omegaquant"
             - "MYSQL_PASSWORD=secret"
         ports:
             - "33061:3306"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links:
+            - database:db
+        ports:
+            - 8181:80
+        environment:
+            MYSQL_USER: omegaquant
+            MYSQL_PASSWORD: secret
+            MYSQL_ROOT_PASSWORD: secret
 volumes:
     dbdata:
+    mssql-volume:

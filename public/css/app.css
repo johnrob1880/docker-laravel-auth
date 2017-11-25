@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://fonts.googleapis.com/icon?family=Material+Icons);@charset "UTF-8";
 
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -8348,5 +8348,68 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+#app > .content {
+  background-color: #ffffff;
+  padding-top: 22px;
+}
+
+[v-cloak] > * {
+  display: none;
+}
+
+div.terms-conditions {
+  padding: 5px;
+  margin-bottom: 10px;
+  text-align: left;
+  border: 1px solid #dcdcdc;
+  height: 60px;
+  overflow-y: scroll;
+}
+
+#app > .navbar-default {
+  background-color: #f8f9fb;
+  margin-bottom: 0;
+  padding: 20px 0;
+}
+
+#app > .navbar-default i.material-icons {
+  font-size: 2em;
+}
+
+.navbar-brand {
+  text-indent: -2000px;
+  background: url(/images/hor-logo.png) center/contain no-repeat;
+  width: 180px;
+}
+
+.nav-tabs.auth-tabs > li.active > a,
+.nav-tabs.auth-tabs > li.active > a:hover,
+.nav-tabs.auth-tabs > li.active > a:focus {
+  color: #555555;
+  background-color: #f8f9fb;
+  border: 1px solid #ddd;
+  border-bottom-color: #f8f9fb;
+  cursor: default;
+}
+
+.btn.btn-transparent {
+  background-color: transparent;
+}
+
+.panel-heading > .panel-title {
+  padding-top: 7.5px;
 }
 

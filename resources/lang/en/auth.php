@@ -13,7 +13,9 @@ return [
     |
     */
 
+    'sign-in' => 'Sign In',
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'exists' => 'The email :email is already taken.'
 
 ];

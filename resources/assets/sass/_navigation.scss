@@ -1,0 +1,22 @@
+#app > .navbar-default {
+    background-color: #f8f9fb;
+    margin-bottom: 0;
+    padding: 20px 0;
+
+    i.material-icons {
+        font-size: 2em;
+    }
+}
+.navbar-brand {
+    text-indent: -2000px;
+    background: url(/images/hor-logo.png) center / contain no-repeat;
+    width: 180px;
+}
+
+.nav-tabs.auth-tabs > li.active > a, .nav-tabs.auth-tabs > li.active > a:hover, .nav-tabs.auth-tabs > li.active > a:focus {
+    color: #555555;
+    background-color: #f8f9fb;
+    border: 1px solid #ddd;
+    border-bottom-color: #f8f9fb;
+    cursor: default;
+}
