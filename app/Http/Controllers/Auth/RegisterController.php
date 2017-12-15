@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request as RequestFacade;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 use App\User;
 use App\Jobs\SendWelcomeEmail;
-use App\Jobs\LinkPatient;
+//use App\Jobs\CreatePatient;
 use App\Http\Controllers\Controller;
+use App\Facades\LocaleRouteFacade;
 
 use Config;
 use App;
@@ -45,6 +47,16 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('welcome');
     }
 
     /**
@@ -85,11 +97,18 @@ class RegisterController extends Controller
             'results_via_email' => array_key_exists('results_via_email', $data),
             'verified' => false,
             'password' => bcrypt(Config::get('auth.default_password')),
-            'origin' => Config::get('webapi.default_country'),
-            'locale' => App::getLocale()
+            'origin' => Config::get('app.origin'),
+            'locale' => App::getLocale(),
+            'date_of_last_login' => \Carbon\Carbon::now(),
+            'last_ip' => RequestFacade::ip()
         ]);
 
         return $user;
+    }
+
+    public function terms(Request $request) 
+    {
+        return view('auth.terms-of-service');
     }
 
     /**
@@ -100,10 +119,10 @@ class RegisterController extends Controller
      */
     public function registered(Request $request, $user)
     {
+   
         dispatch(new SendWelcomeEmail($user));
-        dispatch(new LinkPatient($user));
         
-
-        return redirect($this->redirectPath());
+        
+        return redirect(LocaleRouteFacade::url($this->redirectTo));
     }
 }

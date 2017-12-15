@@ -8,7 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'OmegaQuant') }} - @yield('title')</title>
+    <title>{{ config('app.name', 'OmegaQuant') }} | @yield('title')</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -33,47 +36,35 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{  url('/') }}">
+                    <a class="navbar-brand" href="{{ LocaleRoute::url('') }}">
                         {{ config('app.name', 'Omega Quant') }}
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                        <li><a href="#">{{ App::getLocale()}}</a> - {{ Config::get('app.location') }}</li>
+                    <ul class="nav navbar-nav">                
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('signin') }}">@lang('auth.sign-in')</a></li>
+                            @if (Route::current()->getName() != 'login')
+                            <li><a id="loginBtn" class="btn btn-transparent btn-transparent-dark" href="{{ LocaleRoute::route('login') }}">@lang('auth.sign-in')</a></li>
+                            @endif
                             {{--  <li><a href="{{ route('register') }}">Register</a></li>  --}}
                         @else
                             @if (Auth::user()->verified)
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        <i class="material-icons">&#xE853;</i><i class="material-icons">&#xE5C5;</i>
+                                <li><a href="{{ LocaleRoute::route('home') }}">@lang('navigation.dashboard')</a></li>
+                                <li><a href="{{ LocaleRoute::route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                            @lang('navigation.logout')
                                     </a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#">My Results</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                                Logout
-                                            </a>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                {{ csrf_field() }}
-                                            </form>
-                                        </li>
-                                    </ul>
+                                    <form id="logout-form" action="{{ LocaleRoute::route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
                                 </li>
                             @endif
                         @endguest
@@ -85,12 +76,16 @@
         @include('partials/flash')
         @yield('content')
         </div>
+        @include('partials/footer')
     </div>
 
     <!-- Scripts -->
     @env('local')
     <script src="{{ asset('js/manifest.js') }}"></script>
     @endenv
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.4/holder.min.js"></script>
+
     <script src="{{ asset('js/vendor.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     

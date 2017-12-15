@@ -7,11 +7,14 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\Config;
 
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
 use App\Helpers\Contracts\OmegaWebApiContract;
 use App\Helpers\Contracts\ActivityLoggerContract;
+use App\Facades\LocaleRouteFacade;
+
 use App\Constants\Activities;
 use App\User;
 
@@ -19,6 +22,7 @@ class LinkPatient implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $barcode;
     protected $user;
 
     /**
@@ -26,9 +30,10 @@ class LinkPatient implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct($barcode, User $user)
     {
         $this->user = $user;
+        $this->barcode = $barcode;
     }
 
     /**
@@ -38,23 +43,55 @@ class LinkPatient implements ShouldQueue
      */
     public function handle(OmegaWebApiContract $api, ActivityLoggerContract $activityLogger)
     {
-        // If the patient already exists, the api will just return that patient...
-        $patient = $api->createPatientFromUser($this->user);
+        $patient = $api->getPatientByOmegaQuantId($this->barcode);
 
         if (is_null($patient))
         {
+            $activityLogger->create(
+                Activities::PATIENT_LINK_FAILURE, 
+                "Attempt to link patient failed for id: " . $this->barcode . " ,user: " . $this->user->email . ". Patient not found.",
+                LocaleRouteFacade::route('register'),
+                '127.0.0.1',
+                'POST',
+                null,
+                $this->user->id);
+           
+            $this->failed();
+            return;
+        }
+
+        // $"{model.OmegaQuantId} ({model.FirstName} {model.LastName})"
+        $link = $api->linkBarcode(
+            $this->barcode, 
+            [
+                'type' => 'Patient',
+                'value' => $patient->id,
+                'description' => sprintf("%s (%s %s)", $patient->omegaQuantId, $patient->firstName, $patient->lastName)
+            ]);
+
+        if (is_null($link))
+        {
             // error?? manually fail job??
-            $activityLogger->create(Activities::PATIENT_LINK_FAILURE, "Attemp to link patient failed for user: " . $this->user->email);
+            $activityLogger->create(
+                Activities::PATIENT_LINK_FAILURE, 
+                "Attempt to link patient failed for id: " . $this->barcode . " ,user: " . $this->user->email . '. Link failed.',
+                LocaleRouteFacade::route('register'),
+                '127.0.0.1',
+                'POST',
+                null,
+                $this->user->id);
 
             return;
         }
 
-        // Link the omegaquant id
-        $this->user->omegaquant_id = $patient->omegaQuantId;
-        $this->user->save();
-
-        $activityLogger->create(Activities::PATIENT_LINK_SUCCESS, "Patient successfully linked for user: " . $this->user->email);
-
+        $activityLogger->create(
+            Activities::PATIENT_LINK_SUCCESS, 
+            "Patient successfully linked to id: " . $this->barcode . " for user: " . $this->user->email,
+            LocaleRouteFacade::route('register'),
+            '127.0.0.1',
+            'POST',
+            null,
+            $this->user->id);
     }
 
     /**

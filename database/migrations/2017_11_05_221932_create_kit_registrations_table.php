@@ -16,13 +16,17 @@ class CreateKitRegistrationsTable extends Migration
         Schema::create('kit_registrations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('barcode')->unique();
+            $table->string('origin');
+            $table->string('barcode');
             $table->string('test_name');
+            $table->string('test_id');
+            $table->string('upgraded_from_test_id')->nullable();
             $table->decimal('test_price', 10, 2);
-            $table->integer('current_step');
+            $table->decimal('analysis_cost', 10, 2);
             $table->boolean('is_complete');
             $table->timestamps();
 
+            $table->unique(['origin', 'barcode']);
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

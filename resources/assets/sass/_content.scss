@@ -1,7 +1,12 @@
-#app > .content {
+body {
+    font-size: 16px;
     background-color: #ffffff;
-    padding-top: 22px;
 }
+#app > div.content {
+    margin-top: 22px;
+    min-height: 400px;
+}
+
 [v-cloak] > * { display:none; }
 
 div.terms-conditions {
@@ -12,3 +17,32 @@ div.terms-conditions {
     height: 60px;
     overflow-y: scroll;
 }
+.v-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.badge-success {
+    background-color: #468847;
+}
+.badge-success:hover {
+    background-color: #356635;
+}
+.media-body h4.title > span {
+    margin-top: 5px;
+    display: block;
+    font-size: .8em;
+}
+.row.alt {
+    background-color: #ebebeb;
+}
+a.link-reset, a.link-reset:active, a.link-reset:visited, a.link-reset:hover {
+    color: inherit;
+}
+.padding-lg {
+    padding: 2em;
+}
+.padding-md {
+    padding: 1.4em;
+}
+

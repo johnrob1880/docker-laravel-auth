@@ -20,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('env', function ($environment) {
             return app()->environment($environment);
         });
+
+        Blade::directive('money', function ($amount) {
+            return "$<?php echo number_format($amount, 2, '.', ','); ?>";
+        });
     }
 
     /**

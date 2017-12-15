@@ -22,9 +22,10 @@ class CreateUsersTable extends Migration
             $table->boolean('verified');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('omegaquant_id')->nullable();
             $table->string('locale')->default('en');
             $table->string('origin')->default('usa');
+            $table->string('last_ip')->nullable();
+            $table->date('date_of_last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

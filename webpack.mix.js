@@ -12,6 +12,9 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
+    .js('resources/assets/js/register.js', 'public/js')
+    .js('resources/assets/js/view.js', 'public/js')
+    .js('resources/assets/js/home.js', 'public/js')
     .extract(['jquery', 'vue'])
    .sass('resources/assets/sass/app.scss', 'public/css')
    .copy('resources/images/*.*', 'public/images');

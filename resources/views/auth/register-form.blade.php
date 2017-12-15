@@ -1,4 +1,4 @@
-<form class="form-horizontal" method="POST" action="{{ route('register') }}">
+<form class="form-horizontal" method="POST" action="{{ LocaleRoute::route('register') }}">
     {{ csrf_field() }}
 
     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -102,6 +102,4 @@
             </button>
         </div>
     </div>
-
-    
 </form>

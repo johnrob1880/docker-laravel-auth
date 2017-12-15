@@ -21,6 +21,7 @@ return [
         'app_id'      => '', // Used for Adaptive Payments API
     ],
 
+    'invoice_prefix' => '', // testkit
     'payment_action' => 'Sale', // Can only be 'Sale', 'Authorization' or 'Order'
     'currency'       => 'USD',
     'notify_url'     => '', // Change this accordingly for your application.

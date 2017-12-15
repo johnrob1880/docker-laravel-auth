@@ -43,6 +43,22 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+window.omegaquant = {
+
+    submitForm: function (target, htmlId, formId) {
+    
+        if (target && target.setAttribute) {
+            target.setAttribute('disabled', 'disabled');
+            var src = document.getElementById(htmlId);
+            target.innerHTML = src && src.innerHTML || '<i class="fa fa-spinner fa-spin"></i>';
+        }
+
+        var form = document.getElementById(formId);
+        form && form.submit && form.submit();
+    }
+
+};
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

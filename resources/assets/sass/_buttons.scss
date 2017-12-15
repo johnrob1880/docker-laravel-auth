@@ -1,6 +1,27 @@
-.btn.btn-transparent {
-    background-color: transparent;
-}
 .panel-heading > .panel-title {
     padding-top: 7.5px;
+}
+.btn-transparent, .btn-transparent:visited {
+    background: transparent;
+    color: #F2F2F2;
+    -webkit-transition: background .2s ease-in-out, border .2s ease-in-out;
+    -moz-transition: background .2s ease-in-out, border .2s ease-in-out;
+    -o-transition: background .2s ease-in-out, border .2s ease-in-out;
+    transition: background .2s ease-in-out, border .2s ease-in-out;
+    border: 1px solid #F2F2F2;
+} 
+
+.btn-transparent:hover {
+    color: #ffffff;
+    background-color: rgba(255,255,255,0.2);
+    border: 1px solid #ffffff;
+}
+.btn-transparent-dark, .btn-transparent-dark:visited {
+    color: #595959;
+    border: 1px solid #595959;
+}
+.btn-transparent-dark:hover {
+    color: #000000;
+    border: 1px solid #595959;
+    border: 1px solid #000000;
 }

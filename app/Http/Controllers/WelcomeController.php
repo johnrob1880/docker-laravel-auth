@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use App\User;
 use Illuminate\Validation\ValidationException;
+use App\Facades\LocaleRouteFacade;
 
 use Config;
 
@@ -29,9 +30,11 @@ class WelcomeController extends Controller
     public function index(Request $request)
     {
         if (Auth::check()) {
-            return redirect()->route('home');
+            return redirect(LocaleRouteFacade::route('home'));
         }
+        
+        return view('welcome');
 
-        return redirect()->route('register');
+        //return redirect()->route('register');
     }
 }

@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        $kits = KitRegistration::where('user_id', $user->id)->get();
+        $kits = KitRegistration::where('user_id', $user->id)->orderby('created_at', 'desc')->get();
 
         return view('home', [
             'kits' => $kits

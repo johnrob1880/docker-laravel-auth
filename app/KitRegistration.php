@@ -13,7 +13,7 @@ class KitRegistration extends Model
      * @var array
      */
     protected $fillable = [
-        'barcode', 'user_id', 'current_step', 'test_name', 'test_price', 'is_complete'
+        'barcode', 'user_id', 'test_name', 'test_id', 'upgraded_from_test_id', 'test_price', 'analysis_cost', 'is_complete', 'origin'
     ];
 
     /**

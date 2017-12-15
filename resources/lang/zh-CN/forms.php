@@ -13,10 +13,10 @@ return [
     |
     */
     'titles' => [
-        'new-barcode' => 'New Barcode',
-        'upgrade' => 'Upgrade',
-        'payment' => 'Payment',
-        'invalid' => 'Invalid'
+        'new-barcode' => '新的条形码',
+        'upgrade' => '升级',
+        'payment' => '付款',
+        'invalid' => '无效'
     ],
     'fields' => [
         'email' => 'E-mail Address',
@@ -24,7 +24,8 @@ return [
         'lastname' => 'Lastname',
         'date-of-birth' => 'Date of Birth',
         'terms-conditions' => 'Terms &amp; Conditions',
-        'password' => 'Password'
+        'password' => 'Password',
+        'barcode' => '条码'
     ],
     'phrases' => [
         'terms-accept' => '我接受这些条款和条件',
@@ -35,13 +36,15 @@ return [
     'buttons' => [
         'sign-up' => '注册',
         'sign-in' => '签到',
-        'continue' => 'Continue',
-        'no-thanks' => 'No Thanks',
-        'selected' => 'Selected',
-        'upgrade' => 'Upgrade',
-        'cancel-upgrade' => 'Cancel Upgrade',
+        'continue' => '继续',
+        'no-thanks' => '不用了，谢谢',
+        'selected' => '选',
+        'upgrade' => '升级',
+        'cancel-upgrade' => '取消升级',
         'pay-with-paypal' => 'Pay with PayPal',
-        'start-over' => 'Start Over'
+        'start-over' => '重来',
+        'complete' => '完成',
+        'change' => '更改'
     ]
 
 ];

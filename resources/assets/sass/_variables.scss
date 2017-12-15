@@ -2,6 +2,7 @@
 // Body
 $body-bg: #f5f8fa;
 
+
 // Borders
 $laravel-border-color: darken($body-bg, 10%);
 $list-group-border: $laravel-border-color;
@@ -22,6 +23,7 @@ $font-family-sans-serif: "Raleway", sans-serif;
 $font-size-base: 14px;
 $line-height-base: 1.6;
 $text-color: #636b6f;
+$link-color: #00539b;
 
 // Navbar
 $navbar-default-bg: #fff;
@@ -35,4 +37,7 @@ $input-border-focus: lighten($brand-primary, 25%);
 $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
+$panel-primary-heading-bg: #315EC9;
 $panel-default-heading-bg: #fff;
+
+$heading-accent-primary: #cccccc;

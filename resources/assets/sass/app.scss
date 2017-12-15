@@ -2,14 +2,19 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
-// Variables
-@import "variables";
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
+// Variables
+@import "variables";
+
 @import "transitions";
+@import "forms";
 @import "content";
 @import "navigation";
 @import "buttons";
+@import "products";
+@import "footer";

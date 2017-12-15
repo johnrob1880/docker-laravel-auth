@@ -1,0 +1,37 @@
+#app > footer {
+
+    margin-top: 20px;
+
+    h4 {
+        border-bottom: 1px solid #fff;
+        padding-bottom: 10px;
+    }
+
+    .footer-content {
+        padding: 20px 0;
+        background-color: #1d3978;
+        color: #ffffff;
+    }
+
+    .footer-foot {
+        height: 40px;
+        line-height: 40px;
+        background-color: #315EC9;
+        color: #ffffff;
+
+        a, a:hover, a:visited {
+            color: #ffffff;
+        }
+    }
+
+    img.footer-logo {
+        width: 180px;
+        margin: 10px 0 20px 0;
+    }
+
+    .social-icons {
+        a {
+            margin-left: 10px;
+        }
+    }
+}

@@ -7,7 +7,7 @@
     <hr>
     <div class="row">
         <div class="col-sm-6">
-            <a href="{{ route('kit.new', [ 'barcode' => $barcode ]) }}" class="btn btn-default">@lang('forms.buttons.start-over')</a>
+            <a href="{{ LocaleRoute::route('kit.new', [ 'barcode' => $barcode ]) }}" class="btn btn-default">@lang('forms.buttons.start-over')</a>
         </div>
         <div class="col-sm-6">
         </div>

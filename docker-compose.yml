@@ -1,24 +1,5 @@
 version: "3"
 services: 
-    sqlserver:
-        image: microsoft/mssql-server-linux
-        volumes:
-        - mssql-volume:/var/opt/mssql
-        environment:
-        - ACCEPT_EULA=Y
-        - SA_PASSWORD=Testing123
-        ports:
-        - "1433:1433"
-    api: 
-        image: omegawebapi
-        environment:
-            - ConnectionString=Server=sqlserver;Initial Catalog=analytics;User=sa;Password=Testing123
-        expose:
-            - "80"
-        ports:
-            - "5101:80"
-        links:
-            - sqlserver
     web:
         build:
             context: ./

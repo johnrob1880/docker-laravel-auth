@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 use App\Jobs\RecordActivity;
 use App\Constants\Activities;
+use App\Facades\LocaleRouteFacade;
 
 class LoginController extends Controller
 {
@@ -29,7 +32,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '';
 
     /**
      * Create a new controller instance.
@@ -41,6 +44,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function logout()
+    {
+        Auth::logout();
+        Session::flush();
+
+        return redirect(LocaleRouteFacade::url($this->redirectTo));
+    }
+
+
     /**
      * The user has been authenticated.
      *
@@ -50,6 +62,10 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
+        $user->date_of_last_login = \Carbon\Carbon::now();
+        $user->last_ip = $request->ip();
+        $user->save();
+
         $subject = $user->email . " has logged in.";
         dispatch(new RecordActivity($request, $user, Activities::USER_LOGIN, $subject));
     }

@@ -14,6 +14,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'Omega Quant Web'),
+    'copyright_year' => env('COPYRIGHT_YEAR', '2018'),
+    'company_name' => env('COMPANY_NAME', 'OmegaQuant'),
 
     /*
     |--------------------------------------------------------------------------
@@ -126,9 +128,13 @@ return [
     | to any of the locales which will be supported by the application.
     |
     */
+
+    'origin' => env('APP_ORIGIN', 'us'),
+    'locale' => env('APP_LOCALE', 'en'),
+
+    'origins' => [ 'us', 'au', 'zh' ],    
+    'locales' => [ 'en' => 'English', 'en-au' => 'English (Australian)', 'es' => 'Spanish', 'zh-cn' => 'Chinese (Simplified)', 'zh-tw' => 'Chinese (Traditional)' ],
     
-    'locales' => [ 'en' => 'English', 'en-AU' => 'English (Australian)', 'es' => 'Spanish', 'zh-CN' => 'Chinese (Simplified)', 'zh-TW' => 'Chinese (Traditional)' ],
-    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -141,7 +147,8 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => env('APP_LOCALE', 'en'),
+    'fallback_origin' => env('APP_ORIGIN', 'us'),
 
     /*
     |--------------------------------------------------------------------------
@@ -154,9 +161,9 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY'), // base64:+uh7D1iGpuydYdW4Ou5s/Xf0EhfElWYT5wnWwoeoYq0=
 
-    'cipher' => 'AES-256-CBC',
+    'cipher' => 'AES-256-CBC', // 'AES-256-CBC'
 
     /*
     |--------------------------------------------------------------------------
@@ -229,10 +236,10 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        //App\Providers\LocationDetectorServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\OmegaWebApiProvider::class,
         App\Providers\ActivityLoggerProvider::class,
+        App\Providers\LocaleRouteServiceProvider::class,
 
     ],
 
@@ -285,6 +292,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+        'LocaleRoute' => App\Facades\LocaleRouteFacade::class,
     ],
 
 ];

@@ -24,7 +24,8 @@ return [
         'lastname' => 'Lastname',
         'date-of-birth' => 'Date of Birth',
         'terms-conditions' => 'Terms &amp; Conditions',
-        'password' => 'Password'
+        'password' => 'Password',
+        'barcode' => '條碼'
     ],
     'phrases' => [
         'terms-accept' => 'I accept these terms and conditions',
@@ -41,7 +42,8 @@ return [
         'upgrade' => 'Upgrade',
         'cancel-upgrade' => 'Cancel Upgrade',
         'pay-with-paypal' => 'Pay with PayPal',
-        'start-over' => 'Start Over'
+        'start-over' => 'Start Over',
+        'change' => '更改'
     ]
 
 ];

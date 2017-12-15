@@ -7,12 +7,14 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\Config;
 
 use Mail;
 use App\User;
 use App\Mail\WelcomeEmail;
 use App\Helpers\Contracts\ActivityLoggerContract;
 use App\Constants\Activities;
+use App\Facades\LocaleRouteFacade;
 
 class SendWelcomeEmail implements ShouldQueue
 {
@@ -40,6 +42,13 @@ class SendWelcomeEmail implements ShouldQueue
         $email = new WelcomeEmail($this->user);
         Mail::to($this->user->email)->send($email);
 
-        $activityLogger->create(Activities::WELCOME_EMAIL_SENT ,"Welcome email sent to " . $email);
+        $activityLogger->create(
+            Activities::WELCOME_EMAIL_SENT, 
+            "Welcome email sent to " . $this->user->email . '.',
+            LocaleRouteFacade::route('register'),
+            '127.0.0.1',
+            'GET',
+            null,
+            $this->user->id);
     }
 }

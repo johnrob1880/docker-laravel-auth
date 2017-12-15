@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 
+use App\Facades\LocaleRouteFacade;
+
 class CreatePasswordController extends Controller
 {
     use RedirectsUsers;
@@ -130,7 +132,6 @@ class CreatePasswordController extends Controller
     {
         $user->forceFill([
             'password' => bcrypt($password),
-            'remember_token' => Str::random(60),
             'verified' => true
         ])->save();
         $this->guard()->login($user);
@@ -143,7 +144,7 @@ class CreatePasswordController extends Controller
      */
     protected function sendCreateResponse($response)
     {
-        return redirect($this->redirectPath());
+        return redirect(LocaleRouteFacade::url($this->redirectPath()));
     }
     
     /**

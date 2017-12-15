@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Crypt;
+
 
 class User extends Authenticatable
 {
@@ -15,7 +17,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'date_of_birth', 'results_via_email', 'verified', 'email', 'password',
+        'firstname', 'lastname', 'date_of_birth', 'results_via_email', 'verified', 
+        'email', 'password', 'origin', 'locale', 'date_of_last_login', 'last_ip'
     ];
 
     /**
@@ -26,4 +29,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getIpAttribute() {
+    	if (!is_null($this->last_ip)) {
+    		return $this->last_ip;
+    	}
+    	return '127.0.0.1';
+    }
+
+    public function getFullNameAttribute() {
+        return sprintf('%s %s', $this->firstname, $this->lastname);
+    }
 }

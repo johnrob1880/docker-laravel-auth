@@ -1,3 +1,3 @@
 <div class="top-right links">
-<a href="{{ url('/') }}">Home</a>
+<a href="{{ LocaleRoute::url('') }}">Home</a>
 </div>
